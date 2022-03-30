@@ -1,5 +1,16 @@
 <template>
-  <section class="section">
-    <div>This is Home</div>
-  </section>
+  <!-- Wrapper -->
+  <div>
+    <!-- Banner -->
+    <home-banner />
+  </div>
 </template>
+
+<script>
+export default {
+  head: {
+    title: 'QR Code menu',
+  },
+  auth: false,
+}
+</script>

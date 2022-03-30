@@ -1,4 +1,9 @@
 export default {
+  // Loading: https://nuxtjs.org/docs/features/loading/
+  loading: {
+    color: '#00e492',
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: 'Lookmenu - %s',
@@ -31,7 +36,53 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/buefy
     ['nuxt-buefy', { css: false }],
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
   ],
+
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {
+    prefix: '/api',
+  },
+
+  // Nuxt Auth + Auth0: https://auth.nuxtjs.org/providers/auth0
+  auth: {
+    strategies: {
+      auth0: {
+        domain: 'lookmenu.us.auth0.com',
+        clientId: 'WQFx36aqrzNgqui4MFmb8SiUkqKNchaN',
+        audience: 'https://lookmenu.app',
+        logoutRedirectUri: 'http://localhost:3000',
+        scope: ['openid', 'profile', 'email', 'offline_access'],
+        responseType: 'code',
+        grantType: 'authorization_code',
+        codeChallengeMethod: 'S256',
+      },
+    },
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/app',
+    },
+  },
+
+  // For runtime passing of environment variables
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL,
+    },
+  },
+
+  router: {
+    middleware: ['auth'],
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

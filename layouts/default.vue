@@ -1,4 +1,5 @@
 <template>
+  <!-- Wrapper -->
   <div>
     <!-- Navbar -->
     <app-navbar />
