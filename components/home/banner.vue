@@ -11,7 +11,9 @@
             <p class="is-size-3 has-text-grey">on a QR Code.</p>
             <div class="mt-4 has-text-centered-mobile">
               <b-button type="is-light is-primary" rounded>View Demo</b-button>
-              <b-button type="is-primary" rounded>Create Menu</b-button>
+              <b-button type="is-primary" rounded @click="signUp">
+                Create Menu
+              </b-button>
             </div>
           </div>
           <!-- Right -->
@@ -28,3 +30,13 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  methods: {
+    signUp() {
+      this.$auth.loginWith('auth0', { params: { screen_hint: 'signup' } })
+    },
+  },
+}
+</script>

@@ -7,8 +7,8 @@
           <img src="/img/logo.png" />
         </figure>
         <!-- Loading -->
-        <div class="is-flex is-justify-content-center">
-          <jumper />
+        <div class="mt-4 is-flex is-justify-content-center">
+          <bounce-loader />
         </div>
       </div>
     </div>
@@ -16,14 +16,16 @@
 </template>
 
 <script>
-import { Jumper } from 'vue-loading-spinner'
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 
 export default {
   layout: 'blank',
   auth: 'guest',
-  title: 'Login',
+  head: {
+    title: 'Login',
+  },
   components: {
-    Jumper,
+    BounceLoader,
   },
 }
 </script>
