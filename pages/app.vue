@@ -20,5 +20,8 @@ export default {
       this.$refs.addPlace.open()
     },
   },
+  async asyncData({ store }) {
+    await store.dispatch('places/loadPlaces')
+  },
 }
 </script>

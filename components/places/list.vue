@@ -30,19 +30,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   computed: {
     places() {
       return this.$store.getters['places/getPlaces']
     },
-  },
-  methods: {
-    ...mapActions('places', ['loadPlaces']),
-  },
-  fetch() {
-    return this.loadPlaces()
   },
 }
 </script>

@@ -4,7 +4,15 @@ import { extend, ValidationObserver, ValidationProvider } from 'vee-validate'
 Vue.component('v-obs', ValidationObserver)
 Vue.component('v-prov', ValidationProvider)
 
-import { required, email, min, max, length } from 'vee-validate/dist/rules'
+import {
+  required,
+  email,
+  min,
+  max,
+  length,
+  oneOf,
+  numeric,
+} from 'vee-validate/dist/rules'
 
 const regexURL =
   /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi
@@ -33,3 +41,7 @@ extend('length', {
   message: (field, args) =>
     `${field} must have exactly ${args.length} characters`,
 })
+
+extend('oneOf', oneOf)
+
+extend('numeric', { ...numeric, message: '{_field_} must have numbers only' })
