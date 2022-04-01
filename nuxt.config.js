@@ -24,7 +24,7 @@ export default {
   css: ['@/assets/scss/main.scss', '@/assets/scss/app.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['@/plugins/validation.client.js', '@/plugins/notify.client.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,12 +37,14 @@ export default {
     // https://go.nuxtjs.dev/buefy
     ['nuxt-buefy', { css: false }],
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     prefix: '/api',
+    proxy: true,
   },
 
   // Nuxt Auth + Auth0: https://auth.nuxtjs.org/providers/auth0
@@ -60,24 +62,15 @@ export default {
       },
     },
     redirect: {
-      login: '/login',
+      login: '/',
       logout: '/',
       callback: '/login',
       home: '/app',
     },
   },
 
-  // For runtime passing of environment variables
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
-    },
-  },
-
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL,
-    },
+  proxy: {
+    '/api': process.env.BASE_URL,
   },
 
   router: {
@@ -85,5 +78,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: ['vee-validate/dist/rules'],
+  },
 }

@@ -2,6 +2,10 @@
   <div class="section">
     <div class="container is-max-desktop">
       <p class="title">Places</p>
+      <!-- List -->
+      <places-list @open:add="openAdd" />
+      <!-- Add Place -->
+      <places-add ref="addPlace" />
     </div>
   </div>
 </template>
@@ -10,6 +14,11 @@
 export default {
   head: {
     title: 'Home',
+  },
+  methods: {
+    openAdd() {
+      this.$refs.addPlace.open()
+    },
   },
 }
 </script>
