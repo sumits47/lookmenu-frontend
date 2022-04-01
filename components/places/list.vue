@@ -1,13 +1,22 @@
 <template>
   <div class="columns is-multiline is-desktop">
+    <!-- Places -->
+    <div v-for="p in places" :key="p._id" class="column is-4">
+      <places-card :place="p" />
+    </div>
     <!-- Add Place -->
     <div class="column is-4">
-      <div class="card is-clickable" @click="$emit('open:add')">
-        <div class="card-content">
+      <div
+        class="card is-clickable"
+        style="height: 100%"
+        @click="$emit('open:add')"
+      >
+        <div
+          class="card-content is-flex is-flex-direction-column is-justify-content-center is-align-items-center"
+          style="height: 100%"
+        >
           <div class="is-flex is-justify-content-center">
-            <figure class="image is-64x64">
-              <img src="/img/add-button.png" />
-            </figure>
+            <b-icon icon="map-plus" size="is-large" type="is-primary" />
           </div>
           <div
             class="mt-4 has-text-grey has-text-weight-medium has-text-centered"
@@ -21,17 +30,19 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('places', ['getPlaces']),
+    places() {
+      return this.$store.getters['places/getPlaces']
+    },
   },
   methods: {
     ...mapActions('places', ['loadPlaces']),
   },
-  mounted() {
-    this.loadPlaces()
+  fetch() {
+    return this.loadPlaces()
   },
 }
 </script>
