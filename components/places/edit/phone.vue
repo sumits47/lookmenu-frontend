@@ -13,36 +13,34 @@
     </div>
     <label class="label is-small">Edit Phone</label>
     <div class="field has-addons">
-      <div class="field-body">
-        <v-prov
-          name="Country Code"
-          tag="div"
-          class="control"
-          :rules="{
-            oneOf: codeOptions,
-          }"
-          #default="{ errors }"
-        >
-          <b-field :message="errors" custom-class="is-small">
-            <b-select v-model="form.phoneCode">
-              <option v-for="(opt, i) in codeOptions" :key="i" :value="opt">
-                +{{ opt }}
-              </option>
-            </b-select>
-          </b-field>
-        </v-prov>
-        <v-prov
-          name="Phone Number"
-          rules="numeric"
-          tag="div"
-          class="control is-expanded"
-          #default="{ errors }"
-        >
-          <b-field :message="errors">
-            <b-input v-model="form.phoneNumber" placeholder="Optional" />
-          </b-field>
-        </v-prov>
-      </div>
+      <v-prov
+        name="Country Code"
+        tag="div"
+        class="control"
+        :rules="{
+          oneOf: codeOptions,
+        }"
+        #default="{ errors }"
+      >
+        <b-field :message="errors" custom-class="is-small">
+          <b-select v-model="form.phoneCode">
+            <option v-for="(opt, i) in codeOptions" :key="i" :value="opt">
+              +{{ opt }}
+            </option>
+          </b-select>
+        </b-field>
+      </v-prov>
+      <v-prov
+        name="Phone Number"
+        rules="numeric"
+        tag="div"
+        class="control is-expanded"
+        #default="{ errors }"
+      >
+        <b-field :message="errors">
+          <b-input v-model="form.phoneNumber" placeholder="Optional" />
+        </b-field>
+      </v-prov>
     </div>
     <div class="field">
       <b-button

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="columns is-gapless is-align-items-center my-0 py-2 brand-bottom-border"
+    class="columns is-mobile is-gapless is-align-items-center my-0 py-2 brand-bottom-border"
   >
     <div class="column has-text-grey" v-text="label" />
     <div

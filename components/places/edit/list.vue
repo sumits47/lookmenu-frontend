@@ -24,6 +24,15 @@
       editable
       @edit="onEditCurrency"
     />
+    <!-- WiFi -->
+    <lm-text-info label="WiFi" value="Edit" editable @edit="onEditWifi" />
+    <!-- Brading -->
+    <lm-text-info
+      label="Branding"
+      value="Edit"
+      editable
+      @edit="onEditBranding"
+    />
   </div>
 </template>
 
@@ -34,6 +43,8 @@ import EditName from './name.vue'
 import EditLocation from './location.vue'
 import EditPhone from './phone.vue'
 import EditCurrency from './currency.vue'
+import EditWifi from './wifi.vue'
+import EditBranding from './branding.vue'
 
 export default {
   props: {
@@ -63,6 +74,12 @@ export default {
     },
     onEditCurrency() {
       this.$emit('show', EditCurrency)
+    },
+    onEditWifi() {
+      this.$emit('show', EditWifi)
+    },
+    onEditBranding() {
+      this.$emit('show', EditBranding)
     },
   },
 }

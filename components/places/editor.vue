@@ -1,5 +1,5 @@
 <template>
-  <div class="box m-0" style="width: 400px">
+  <div class="box m-0 editor-wrapper">
     <!-- Name -->
     <div class="is-size-5" v-text="place.name" />
     <!-- Location -->
@@ -32,3 +32,15 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.editor-wrapper {
+  width: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+  .editor-wrapper {
+    width: 100vw;
+  }
+}
+</style>

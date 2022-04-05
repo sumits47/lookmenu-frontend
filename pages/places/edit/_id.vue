@@ -5,7 +5,7 @@
       <!-- Left -->
       <places-editor :place="place" />
       <!-- Right -->
-      <div class=""></div>
+      <div class="is-hidden-mobile"></div>
     </div>
   </div>
 </template>
