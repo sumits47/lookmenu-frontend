@@ -10,5 +10,21 @@ export default {
       if (city) value = city + ', ' + value
       return value
     },
+    hasPhone() {
+      const { phoneCode, phoneNumber } = this.place
+      return phoneCode && phoneNumber
+    },
+    phone() {
+      const { phoneCode, phoneNumber } = this.place
+      return this.hasPhone ? `(+${phoneCode}) ${phoneNumber}` : 'Not Set'
+    },
+    hasWifi() {
+      const { wifiName } = this.place
+      return !!wifiName
+    },
+    wifi() {
+      const { wifiName, wifiPassword } = this.place
+      return this.hasWifi ? `${wifiName} / ${wifiPassword || '-'}` : 'Not Set'
+    },
   },
 }

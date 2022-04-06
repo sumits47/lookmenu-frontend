@@ -34,4 +34,8 @@ export const actions = {
     const data = await this.$axios.$patch(`/places/${_id}`, body)
     commit('setSelected', data)
   },
+  async removePlace({ dispatch }, id) {
+    await this.$axios.$delete(`/places/${id}`)
+    await dispatch('loadPlaces')
+  },
 }

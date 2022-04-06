@@ -1,33 +1,56 @@
 <template>
   <div class="box m-0 editor-wrapper">
-    <!-- Name -->
-    <div class="is-size-5" v-text="place.name" />
-    <!-- Location -->
-    <div class="has-text-grey" v-text="location" />
+    <!-- Name & Location -->
+    <div class="media">
+      <div class="media-content">
+        <!-- Name -->
+        <p class="has-text-weight-medium is-size-5" v-text="place.name" />
+        <!-- Location -->
+        <p class="has-text-grey is-size-6" v-text="location" />
+      </div>
+      <!-- Actions -->
+      <div class="media-right">
+        <b-button
+          icon-left="exit-to-app"
+          type="is-info is-light"
+          tag="nuxt-link"
+          to="/app"
+        />
+      </div>
+    </div>
+    <!-- Divider -->
     <hr />
-    <!-- Info -->
-    <component :is="info" :place="place" class="mt-4" @show="onShow" />
+    <!-- List -->
+    <component
+      :is="list"
+      :place="place"
+      :menus="menus"
+      class="mt-4"
+      @show="onShow"
+    />
   </div>
 </template>
 
 <script>
 import place from '@/mixins/place'
-import InfoList from './edit/list.vue'
+import EditList from './edit/list.vue'
 
 export default {
   mixins: [place],
-  props: {
-    place: {
-      type: Object,
-      required: true,
+  data: () => ({
+    list: EditList,
+  }),
+  computed: {
+    place() {
+      return this.$store.getters['places/getSelected']
+    },
+    menus() {
+      return this.$store.getters['menu/getMenus']
     },
   },
-  data: () => ({
-    info: InfoList,
-  }),
   methods: {
     onShow(component) {
-      this.info = component
+      this.list = component
     },
   },
 }

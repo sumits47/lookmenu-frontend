@@ -24,7 +24,12 @@
       #default="{ errors }"
     >
       <b-field label="Country" :message="errors" custom-class="is-small">
-        <b-select v-model="form.country" expanded placeholder="Required">
+        <b-select
+          v-model="form.country"
+          expanded
+          size="is-small"
+          placeholder="Required"
+        >
           <option v-for="(c, i) in countries" :key="i" :value="c.code">
             {{ c.name }} ({{ c.native }})
           </option>
@@ -33,11 +38,11 @@
     </v-prov>
     <!-- City -->
     <b-field label="City" custom-class="is-small">
-      <b-input v-model="form.city" />
+      <b-input v-model="form.city" size="is-small" />
     </b-field>
     <!-- Address -->
     <b-field label="Address" custom-class="is-small">
-      <b-input v-model="form.address" type="textarea" />
+      <b-input v-model="form.address" type="textarea" size="is-small" />
     </b-field>
     <!-- Save -->
     <div class="field">
@@ -45,6 +50,7 @@
         :disabled="invalid"
         :loading="loading"
         type="is-primary"
+        size="is-small"
         @click="onSave"
       >
         Save

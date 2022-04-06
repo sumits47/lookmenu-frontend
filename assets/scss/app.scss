@@ -21,3 +21,22 @@ html {
 .brand-bottom-border {
   border-bottom: 1px solid #bbf7d0;
 }
+
+.menu-container {
+  width: 100%;
+  max-width: 390px;
+  min-height: 667px;
+  margin: 3rem auto 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-container {
+    height: 100vh;
+    border-radius: 0;
+    margin: auto;
+  }
+
+  .card.menu-container > .card-image:first-child img {
+    border-radius: 0 !important;
+  }
+}

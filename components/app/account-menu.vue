@@ -5,6 +5,9 @@
         {{ $auth.user.name }}
       </b-button>
     </template>
+    <b-dropdown-item aria-role="listitem" has-link>
+      <nuxt-link to="/app">Home</nuxt-link>
+    </b-dropdown-item>
     <b-dropdown-item aria-role="listitem">Profile</b-dropdown-item>
     <b-dropdown-item aria-role="listitem" @click="$auth.logout()">
       Logout

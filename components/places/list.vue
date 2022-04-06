@@ -35,6 +35,9 @@ export default {
     places() {
       return this.$store.getters['places/getPlaces']
     },
+    place() {
+      return this.$store.getters['places/getSelected']
+    },
   },
 }
 </script>

@@ -24,7 +24,11 @@
       #default="{ errors }"
     >
       <b-field label="WiFi Name" :message="errors" custom-class="is-small">
-        <b-input v-model="form.wifiName" placeholder="Optional" />
+        <b-input
+          v-model="form.wifiName"
+          placeholder="Optional"
+          size="is-small"
+        />
       </b-field>
     </v-prov>
     <!-- Password -->
@@ -36,7 +40,11 @@
       #default="{ errors }"
     >
       <b-field label="WiFi Password" :message="errors" custom-class="is-small">
-        <b-input v-model="form.wifiPassword" placeholder="Optional" />
+        <b-input
+          v-model="form.wifiPassword"
+          placeholder="Optional"
+          size="is-small"
+        />
       </b-field>
     </v-prov>
     <!-- Save -->
@@ -45,6 +53,7 @@
         :disabled="invalid"
         :loading="loading"
         type="is-primary"
+        size="is-small"
         @click="cleanAndSave"
       >
         Save

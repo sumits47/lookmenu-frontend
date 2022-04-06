@@ -28,7 +28,7 @@
         custom-class="is-small"
         grouped
       >
-        <b-select v-model="form.currency" expanded>
+        <b-select v-model="form.currency" expanded size="is-small">
           <option
             v-for="(opt, i) in currencyOptions"
             :key="i"
@@ -42,6 +42,7 @@
             :disabled="invalid"
             :loading="loading"
             type="is-primary"
+            size="is-small"
             @click="onSave"
           >
             Save

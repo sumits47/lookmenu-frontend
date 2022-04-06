@@ -1,14 +1,8 @@
 <template>
   <div class="hero is-fullheight brand-bg">
-    <!-- Wrapper -->
-    <div class="is-flex-grow-1 is-flex" style="min-height: 100%">
-      <!-- Left -->
-      <places-editor />
-      <!-- Right -->
-      <div class="is-flex-grow-1 is-hidden-mobile">
-        <!-- Menu -->
-        <menu-preview :place="place" />
-      </div>
+    <div class="is-flex-grow-1">
+      <!-- Menu -->
+      <menu-preview :place="place" />
     </div>
   </div>
 </template>
@@ -18,7 +12,7 @@ export default {
   layout: 'blank',
   head() {
     return {
-      title: 'Edit ' + this.place.name,
+      title: this.place.name,
     }
   },
   computed: {
@@ -29,7 +23,6 @@ export default {
   async asyncData({ route, store }) {
     const { id } = route.params
     await store.dispatch('places/loadPlace', id)
-    await store.dispatch('menu/loadMenus', id)
   },
 }
 </script>

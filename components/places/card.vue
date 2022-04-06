@@ -1,34 +1,48 @@
 <template>
   <div class="card">
     <div class="card-content">
-      <!-- Name -->
-      <div class="is-size-4 has-text-secondary" v-text="place.name" />
-      <!-- Location -->
-      <div class="has-text-grey" v-text="location" />
-      <!-- Buttons -->
-      <div class="mt-2 buttons">
-        <!-- Edit Menu -->
-        <b-button
-          type="is-primary"
-          size="is-small"
-          rounded
-          icon-left="silverware"
-          class="has-text-weight-medium"
-          tag="router-link"
-          :to="editLink"
-        >
-          Edit Menu
-        </b-button>
-        <!-- Orders -->
-        <b-button
-          type="is-info"
-          size="is-small"
-          rounded
-          icon-left="food"
-          class="has-text-weight-medium"
-        >
-          Orders
-        </b-button>
+      <div class="media">
+        <div class="media-content">
+          <!-- Name -->
+          <p class="has-text-secondary is-size-4" v-text="place.name" />
+          <!-- Location -->
+          <p class="has-text-grey is-size-6" v-text="location" />
+        </div>
+        <div class="media-right">
+          <b-button
+            type="is-info is-light"
+            icon-left="tune"
+            tag="nuxt-link"
+            :to="editLink"
+          />
+        </div>
+      </div>
+      <div class="content">
+        <!-- Buttons -->
+        <div class="buttons">
+          <!-- Edit Menu -->
+          <b-button
+            type="is-primary"
+            size="is-small"
+            rounded
+            icon-left="silverware"
+            class="has-text-weight-medium"
+            tag="router-link"
+            :to="editLink"
+          >
+            Edit Menu
+          </b-button>
+          <!-- Orders -->
+          <b-button
+            type="is-info"
+            size="is-small"
+            rounded
+            icon-left="food"
+            class="has-text-weight-medium"
+          >
+            Orders
+          </b-button>
+        </div>
       </div>
     </div>
   </div>

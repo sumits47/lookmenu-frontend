@@ -4,7 +4,6 @@
     wrapper-class="container is-max-desktop"
     shadow
     fixed-top
-    centered
   >
     <!-- Logo & Text -->
     <template #brand>
@@ -13,16 +12,6 @@
         <span class="is-size-5 px-1 has-text-link has-text-weight-medium">
           Lookmenu
         </span>
-      </b-navbar-item>
-    </template>
-    <!-- Left -->
-    <template v-if="$auth.loggedIn" #start>
-      <b-navbar-item
-        tag="router-link"
-        to="/app"
-        class="has-text-link has-text-weight-medium"
-      >
-        Home
       </b-navbar-item>
     </template>
     <!-- Right -->

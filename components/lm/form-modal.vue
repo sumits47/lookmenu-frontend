@@ -11,7 +11,6 @@
         <p class="subtitle">{{ title }}</p>
         <!-- Form Content -->
         <slot />
-        <div class="content"></div>
         <!-- Buttons -->
         <div class="mt-4 buttons is-justify-content-space-between">
           <!-- Submit -->

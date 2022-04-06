@@ -11,21 +11,28 @@
         Back
       </b-button>
     </div>
-    <!-- Name -->
+    <!-- Menu -->
     <v-prov
-      name="Name"
-      rules="required|min:3"
+      name="Menu"
+      rules="required"
       tag="div"
       class="field"
       #default="{ errors }"
     >
       <b-field
-        label="Edit Name"
+        label="Active Menu"
         :message="errors"
         custom-class="is-small"
         grouped
       >
-        <b-input v-model="form.name" expanded size="is-small" />
+        <b-select v-model="form.menu" expanded size="is-small">
+          <option
+            v-for="m in menus"
+            :key="m._id"
+            :value="m._id"
+            v-text="m.name"
+          />
+        </b-select>
         <div class="control">
           <!-- Save -->
           <b-button
@@ -50,14 +57,20 @@ import editPlace from '@/mixins/edit-place'
 
 export default {
   mixins: [editPlace],
+  props: {
+    menus: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      form: _.pick(this.place, ['_id', 'name']),
+      form: _.pick(this.place, ['_id', 'menu']),
     }
   },
   watch: {
     place(updated) {
-      this.form = _.pick(updated, ['_id', 'name'])
+      this.form = _.pick(updated, ['_id', 'menu'])
     },
   },
   methods: {

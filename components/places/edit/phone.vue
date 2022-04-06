@@ -23,7 +23,7 @@
         #default="{ errors }"
       >
         <b-field :message="errors" custom-class="is-small">
-          <b-select v-model="form.phoneCode">
+          <b-select v-model="form.phoneCode" size="is-small">
             <option v-for="(opt, i) in codeOptions" :key="i" :value="opt">
               +{{ opt }}
             </option>
@@ -38,7 +38,11 @@
         #default="{ errors }"
       >
         <b-field :message="errors">
-          <b-input v-model="form.phoneNumber" placeholder="Optional" />
+          <b-input
+            v-model="form.phoneNumber"
+            placeholder="Optional"
+            size="is-small"
+          />
         </b-field>
       </v-prov>
     </div>
@@ -47,6 +51,7 @@
         :disabled="invalid"
         :loading="loading"
         type="is-primary"
+        size="is-small"
         @click="onSave"
       >
         Save
