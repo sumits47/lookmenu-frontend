@@ -4,9 +4,12 @@
     <div class="media">
       <div class="media-content">
         <!-- Name -->
-        <p class="has-text-weight-medium is-size-5" v-text="place.name" />
+        <p class="title is-5" v-text="place.name" />
         <!-- Location -->
-        <p class="has-text-grey is-size-6" v-text="location" />
+        <p class="subtitle is-6">
+          <b-icon icon="map-marker" size="is-small" />
+          {{ location }}
+        </p>
       </div>
       <!-- Actions -->
       <div class="media-right">
@@ -22,7 +25,7 @@
     <hr />
     <!-- List -->
     <component
-      :is="list"
+      :is="component"
       :place="place"
       :menus="menus"
       class="mt-4"
@@ -38,7 +41,7 @@ import EditList from './edit/list.vue'
 export default {
   mixins: [place],
   data: () => ({
-    list: EditList,
+    component: EditList,
   }),
   computed: {
     place() {
@@ -50,20 +53,8 @@ export default {
   },
   methods: {
     onShow(component) {
-      this.list = component
+      this.component = component
     },
   },
 }
 </script>
-
-<style scoped>
-.editor-wrapper {
-  width: 400px;
-}
-
-@media only screen and (max-width: 600px) {
-  .editor-wrapper {
-    width: 100vw;
-  }
-}
-</style>

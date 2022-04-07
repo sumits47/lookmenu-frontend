@@ -31,4 +31,13 @@ export const actions = {
     commit('setSelected', data)
     await dispatch('loadMenus', data.place)
   },
+  async loadMenu({ commit }, menuId) {
+    const data = await this.$axios.$get(`/menus/${menuId}`)
+    commit('setSelected', data)
+  },
+  async removeMenu({ dispatch }, id) {
+    const menu = await this.$axios.$get(`/menus/${id}`)
+    await this.$axios.$delete(`/menus/${id}`)
+    await dispatch('loadMenus', menu.place)
+  },
 }

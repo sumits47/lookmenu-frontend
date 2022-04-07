@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Information -->
-    <div class="has-text-weight-medium is-size-7">Information</div>
+    <div class="title is-6">Information</div>
     <!-- Name -->
     <lm-text-info
       label="Name"
@@ -35,7 +35,7 @@
       @edit="onEditBranding"
     />
     <!-- Menu -->
-    <div class="mt-6 has-text-weight-medium is-size-7">Menu</div>
+    <div class="mt-6 title is-6">Menu</div>
     <!-- Options -->
     <lm-text-info
       label="Options"
@@ -50,6 +50,16 @@
       editable
       @edit="onEditActiveMenu"
     />
+    <!-- Edit Menu -->
+    <b-button
+      type="is-primary is-light"
+      size="is-small"
+      class="is-fullwidth mt-2"
+      tag="nuxt-link"
+      :to="editMenuLink"
+    >
+      Edit Menu
+    </b-button>
     <!-- Delete Place -->
     <b-button
       type="is-danger is-light"
@@ -98,6 +108,10 @@ export default {
     },
     activeMenu() {
       return _.find(this.menus, (m) => m._id === this.place.menu)
+    },
+    editMenuLink() {
+      const { menu } = this.place
+      return `/menus/${menu}`
     },
   },
   methods: {

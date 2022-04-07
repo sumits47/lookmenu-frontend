@@ -17,8 +17,8 @@
         </div>
         <!-- Name & Location -->
         <div class="media-content">
-          <p class="has-text-weight-medium is-size-5" v-text="place.name" />
-          <p class="has-text-secondary is-size-6" v-text="location" />
+          <p class="title is-4" v-text="place.name" />
+          <p class="subtitle is-6" v-text="location" />
         </div>
         <!-- Phone -->
         <div v-if="hasPhone" class="media-right">
@@ -46,6 +46,15 @@
           </div>
         </div>
       </div>
+      <!-- Categories -->
+      <b-tabs :key="tabKey" type="is-toggle">
+        <!-- For every category -->
+        <b-tab-item
+          v-for="c in categories"
+          :key="c._id"
+          :label="c.name"
+        ></b-tab-item>
+      </b-tabs>
     </div>
   </div>
 </template>
@@ -60,11 +69,23 @@ export default {
       type: Object,
       required: true,
     },
+    categories: {
+      type: Array,
+      required: true,
+    },
   },
+  data: () => ({
+    tabKey: Date.now(),
+  }),
   computed: {
     tel() {
       const { phoneCode, phoneNumber } = this.place
       return 'tel:+' + phoneCode + phoneNumber
+    },
+  },
+  watch: {
+    categories() {
+      this.tabKey = Date.now()
     },
   },
 }

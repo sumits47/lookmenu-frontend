@@ -29,6 +29,10 @@ html {
   margin: 3rem auto 0 auto;
 }
 
+.editor-wrapper {
+  width: 400px;
+}
+
 @media only screen and (max-width: 600px) {
   .menu-container {
     height: 100vh;
@@ -38,5 +42,9 @@ html {
 
   .card.menu-container > .card-image:first-child img {
     border-radius: 0 !important;
+  }
+
+  .editor-wrapper {
+    width: 100vw;
   }
 }

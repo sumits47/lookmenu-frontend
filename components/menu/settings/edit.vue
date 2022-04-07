@@ -13,7 +13,7 @@
     </div>
     <!-- Heading -->
     <div class="field">
-      <div class="has-text-weight-medium is-size-7">Update Menu</div>
+      <div class="has-text-weight-medium is-size-7">Update Details</div>
     </div>
     <!-- Name -->
     <v-prov
@@ -47,6 +47,35 @@
         Save
       </b-button>
     </div>
+    <!-- Edit Menu -->
+    <div class="field">
+      <b-button
+        type="is-primary is-light"
+        size="is-small"
+        class="is-fullwidth"
+        tag="nuxt-link"
+        :to="editMenuLink"
+      >
+        Edit Menu
+      </b-button>
+    </div>
+    <!-- Delete Menu -->
+    <div class="field">
+      <b-button
+        type="is-danger is-light"
+        size="is-small"
+        class="is-fullwidth mt-6"
+        :disabled="!canDelete"
+        @click="$refs.delete.open()"
+      >
+        Delete Menu
+      </b-button>
+    </div>
+    <!-- Delete Confirmation -->
+    <lm-confirm ref="delete" title="Delete Menu" @confirm="onDelete">
+      Are you sure you want to delete <strong>{{ selected.name }}</strong
+      >?
+    </lm-confirm>
   </v-obs>
 </template>
 
@@ -67,6 +96,16 @@ export default {
       loading: false,
     }
   },
+  computed: {
+    editMenuLink() {
+      const { _id } = this.selected
+      return `/menus/${_id}`
+    },
+    canDelete() {
+      const place = this.$store.getters['places/getSelected']
+      return place.menu !== this.selected._id
+    },
+  },
   watch: {
     selected(updated) {
       this.form = _.pick(updated, ['_id', 'name', 'description'])
@@ -80,7 +119,20 @@ export default {
       try {
         this.loading = true
         await this.$store.dispatch('menu/updateMenu', this.form)
-        this.$success('Update successful.')
+        this.$success('Menu details updated.')
+        this.goBack()
+      } catch (e) {
+        this.$error(e)
+      } finally {
+        this.loading = false
+      }
+    },
+    async onDelete() {
+      try {
+        const { _id } = this.selected
+        this.loading = true
+        await this.$store.dispatch('menu/removeMenu', _id)
+        this.$success('Menu removed.')
         this.goBack()
       } catch (e) {
         this.$error(e)

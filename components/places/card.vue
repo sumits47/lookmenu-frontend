@@ -28,7 +28,7 @@
             icon-left="silverware"
             class="has-text-weight-medium"
             tag="router-link"
-            :to="editLink"
+            :to="editMenuLink"
           >
             Edit Menu
           </b-button>
@@ -63,6 +63,10 @@ export default {
     editLink() {
       const { _id } = this.place
       return `/places/edit/${_id}`
+    },
+    editMenuLink() {
+      const { menu } = this.place
+      return `/menus/${menu}`
     },
   },
 }
