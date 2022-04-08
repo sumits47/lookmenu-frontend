@@ -30,6 +30,8 @@
       :is="component"
       :place="place"
       :menu="menu"
+      :category="category"
+      :group="group"
       :categories="categories"
       class="mt-4"
       @show="onShow"
@@ -52,6 +54,12 @@ export default {
     },
     menu() {
       return this.$store.getters['menu/getSelected']
+    },
+    category() {
+      return this.$store.getters['category/getSelected']
+    },
+    group() {
+      return this.$store.getters['group/getSelected']
     },
     placeLink() {
       const { _id } = this.$store.getters['places/getSelected']

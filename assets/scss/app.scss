@@ -33,6 +33,10 @@ html {
   width: 400px;
 }
 
+.b-tabs .tab-content {
+  padding: 1rem 0;
+}
+
 @media only screen and (max-width: 600px) {
   .menu-container {
     height: 100vh;

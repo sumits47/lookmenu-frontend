@@ -7,7 +7,7 @@
       <!-- Right -->
       <div class="is-flex-grow-1 is-hidden-mobile">
         <!-- Menu -->
-        <menu-preview :place="place" :categories="categories" />
+        <menu-browse-main :place="place" :categories="categories" />
       </div>
     </div>
   </div>

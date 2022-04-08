@@ -47,13 +47,11 @@
         </div>
       </div>
       <!-- Categories -->
-      <b-tabs :key="tabKey" type="is-toggle">
-        <!-- For every category -->
-        <b-tab-item
-          v-for="c in categories"
-          :key="c._id"
-          :label="c.name"
-        ></b-tab-item>
+      <b-tabs v-model="tab" :key="tabKey" type="is-toggle">
+        <!-- For each category -->
+        <b-tab-item v-for="c in categories" :key="c._id" :label="c.name">
+          <wrapper :category="c" />
+        </b-tab-item>
       </b-tabs>
     </div>
   </div>
@@ -61,9 +59,13 @@
 
 <script>
 import place from '@/mixins/place'
+import Wrapper from './wrapper.vue'
 
 export default {
   mixins: [place],
+  components: {
+    Wrapper,
+  },
   props: {
     place: {
       type: Object,
@@ -75,6 +77,7 @@ export default {
     },
   },
   data: () => ({
+    tab: 0,
     tabKey: Date.now(),
   }),
   computed: {
@@ -82,9 +85,18 @@ export default {
       const { phoneCode, phoneNumber } = this.place
       return 'tel:+' + phoneCode + phoneNumber
     },
+    category() {
+      return this.categories[this.tab]
+    },
   },
   watch: {
     categories() {
+      this.refreshTabs()
+    },
+  },
+  methods: {
+    refreshTabs() {
+      this.tab = 0
       this.tabKey = Date.now()
     },
   },

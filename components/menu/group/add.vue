@@ -13,28 +13,18 @@
     </div>
     <!-- Heading -->
     <div class="field">
-      <div class="has-text-weight-medium is-size-7">Update Branding</div>
+      <div class="has-text-weight-medium is-size-7">Add Group</div>
     </div>
-    <!-- Logo -->
+    <!-- Name -->
     <v-prov
-      name="Logo"
-      rules="url"
+      name="Name"
+      rules="required"
       tag="div"
       class="field"
       #default="{ errors }"
     >
-      <b-field label="Logo" :message="errors" custom-class="is-small">
-        <b-upload
-          :loading="loadingLogo"
-          accept="image/*"
-          drag-drop
-          expanded
-          @input="uploadLogo"
-        >
-          <figure class="image is-square">
-            <img :src="form.logoURL || emptyImage" />
-          </figure>
-        </b-upload>
+      <b-field label="Name" :message="errors" custom-class="is-small">
+        <b-input v-model="form.name" placeholder="Required" size="is-small" />
       </b-field>
     </v-prov>
     <!-- Background -->
@@ -47,78 +37,69 @@
     >
       <b-field label="Background" :message="errors" custom-class="is-small">
         <b-upload
-          :loading="loadingBg"
+          :loading="loading"
           accept="image/*"
           drag-drop
           expanded
           @input="uploadBackground"
         >
           <figure class="image">
-            <img :src="form.bgURL || emptyImage" />
+            <img
+              :src="form.bgURL || emptyImage"
+              style="height: 128px; object-fit: cover"
+            />
           </figure>
         </b-upload>
       </b-field>
     </v-prov>
-    <!-- Save -->
+    <!-- Submit -->
     <div class="field">
       <b-button
         :disabled="invalid"
         :loading="loading"
         type="is-primary"
         size="is-small"
-        @click="onSave"
+        @click="onSubmit"
       >
-        Save
+        Submit
       </b-button>
     </div>
   </v-obs>
 </template>
 
 <script>
-import _ from 'lodash'
-import List from './list.vue'
-import editPlace from '@/mixins/edit-place'
+import Edit from '../category/edit.vue'
 
 export default {
-  mixins: [editPlace],
-  data() {
-    return {
-      form: _.pick(this.place, ['_id', 'logoURL', 'bgURL']),
-      loadingLogo: false,
-      loadingBg: false,
-    }
+  props: {
+    menu: {
+      type: Object,
+      required: true,
+    },
+    category: {
+      type: Object,
+      required: true,
+    },
   },
+  data: () => ({
+    form: {
+      name: '',
+      bgURL: undefined,
+    },
+    loading: false,
+  }),
   computed: {
     emptyImage() {
       return 'https://lookmenu.sgp1.digitaloceanspaces.com/empty-image.jpeg'
     },
   },
-  watch: {
-    place(updated) {
-      this.form = _.pick(updated, ['_id', 'logoURL', 'bgURL'])
-    },
-  },
   methods: {
     goBack() {
-      this.$emit('show', List)
-    },
-    async uploadLogo(file) {
-      try {
-        this.loadingLogo = true
-        const body = new FormData()
-        body.append('file', file)
-        this.form.logoURL = await this.$axios.$post('/upload', body, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-      } catch (e) {
-        this.$error(e)
-      } finally {
-        this.loadingLogo = false
-      }
+      this.$emit('show', Edit)
     },
     async uploadBackground(file) {
       try {
-        this.loadingBg = true
+        this.loading = true
         const body = new FormData()
         body.append('file', file)
         this.form.bgURL = await this.$axios.$post('/upload', body, {
@@ -127,7 +108,24 @@ export default {
       } catch (e) {
         this.$error(e)
       } finally {
-        this.loadingBg = false
+        this.loading = false
+      }
+    },
+    async onSubmit() {
+      try {
+        this.loading = true
+        const payload = {
+          ...this.form,
+          category: this.category._id,
+        }
+        await this.$store.dispatch('group/addGroup', payload)
+        await this.$store.dispatch('category/loadCategories', this.menu._id)
+        this.$success('Group added.')
+        this.goBack()
+      } catch (e) {
+        this.$error(e)
+      } finally {
+        this.loading = false
       }
     },
   },

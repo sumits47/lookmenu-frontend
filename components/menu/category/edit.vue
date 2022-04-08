@@ -39,17 +39,42 @@
         </div>
       </b-field>
     </v-prov>
-    <!-- Delete Category -->
+    <!-- Divider -->
+    <hr />
+    <!-- Groups Heading -->
     <div class="field">
-      <b-button
-        type="is-danger is-light"
-        size="is-small"
-        class="is-fullwidth mt-6"
-        @click="$refs.delete.open()"
-      >
-        Delete Category
-      </b-button>
+      <div class="title is-6">Groups</div>
     </div>
+    <!-- Group List -->
+    <item
+      v-for="(g, i) in groups"
+      :key="g._id"
+      :value="g"
+      :can-move-up="canMoveUp(i)"
+      :can-move-down="canMoveDown(i)"
+      :loading="loading"
+      @edit="openEditGroup(g)"
+      @up="onMoveUp(g)"
+      @down="onMoveDown(g)"
+    />
+    <!-- Add Group -->
+    <b-button
+      type="is-primary is-light"
+      size="is-small"
+      class="is-fullwidth mt-4"
+      @click="openAddGroup"
+    >
+      Add Group
+    </b-button>
+    <!-- Delete Category -->
+    <b-button
+      type="is-danger is-light"
+      size="is-small"
+      class="is-fullwidth mt-6"
+      @click="$refs.delete.open()"
+    >
+      Delete Category
+    </b-button>
     <!-- Delete Confirmation -->
     <lm-confirm ref="delete" title="Delete Category" @confirm="onDelete">
       Are you sure you want to delete <strong>{{ category.name }}</strong
@@ -60,9 +85,15 @@
 
 <script>
 import _ from 'lodash'
+import Item from '@/components/lm/item.vue'
 import List from './list.vue'
+import AddGroup from '../group/add.vue'
+import EditGroup from '../group/edit.vue'
 
 export default {
+  components: {
+    Item,
+  },
   data() {
     const category = this.$store.getters['category/getSelected']
     return {
@@ -73,6 +104,9 @@ export default {
   computed: {
     category() {
       return this.$store.getters['category/getSelected']
+    },
+    groups() {
+      return this.$store.getters['group/getGroups']
     },
   },
   watch: {
@@ -103,6 +137,42 @@ export default {
         await this.$store.dispatch('category/removeCategory', _id)
         this.$success('Category removed.')
         this.goBack()
+      } catch (e) {
+        this.$error(e)
+      } finally {
+        this.loading = false
+      }
+    },
+    canMoveUp(i) {
+      return i !== 0
+    },
+    canMoveDown(i) {
+      const max = this.groups.length - 1
+      return i !== max
+    },
+    openAddGroup() {
+      this.$emit('show', AddGroup)
+    },
+    openEditGroup(group) {
+      this.$store.commit('group/setSelected', group)
+      this.$emit('show', EditGroup)
+    },
+    async onMoveUp(group) {
+      try {
+        this.loading = true
+        await this.$store.dispatch('group/moveUp', group)
+        await this.$store.dispatch('category/loadCategories', group.menu)
+      } catch (e) {
+        this.$error(e)
+      } finally {
+        this.loading = false
+      }
+    },
+    async onMoveDown(group) {
+      try {
+        this.loading = true
+        await this.$store.dispatch('group/moveDown', group)
+        await this.$store.dispatch('category/loadCategories', group.menu)
       } catch (e) {
         this.$error(e)
       } finally {

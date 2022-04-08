@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import Item from './item.vue'
+import Item from '@/components/lm/item.vue'
 import Add from './add.vue'
 import Edit from './edit.vue'
 
@@ -82,6 +82,7 @@ export default {
     },
     onEdit(category) {
       this.$store.commit('category/setSelected', category)
+      this.$store.dispatch('group/loadGroups', category._id)
       this.$emit('show', Edit)
     },
   },

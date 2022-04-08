@@ -2,7 +2,7 @@
   <div class="hero is-fullheight brand-bg">
     <div class="is-flex-grow-1">
       <!-- Menu -->
-      <menu-preview :place="place" :categories="categories" />
+      <menu-browse-main :place="place" :categories="categories" />
     </div>
   </div>
 </template>
