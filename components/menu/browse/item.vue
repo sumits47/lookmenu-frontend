@@ -1,5 +1,5 @@
 <template>
-  <div v-if="item.visible" class="mb-4">
+  <div v-if="item.visible" class="py-2">
     <!-- Name & Weight -->
     <div class="media mb-2">
       <div class="media-content">
@@ -46,7 +46,7 @@
     <div class="columns is-mobile">
       <!-- If Available -->
       <div class="column">
-        <p v-if="item.available">
+        <p v-if="item.available" :class="{ 'mt-2': item.imageURL }">
           <!-- Price -->
           <span class="is-size-4 has-text-weight-medium has-text-secondary">
             {{ item.price }}

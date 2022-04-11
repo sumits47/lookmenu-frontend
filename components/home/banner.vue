@@ -4,7 +4,9 @@
       <div class="container is-max-desktop">
         <div class="columns">
           <!-- Left -->
-          <div class="column has-text-centered-mobile">
+          <div
+            class="column has-text-centered-mobile is-flex is-flex-direction-column is-justify-content-center"
+          >
             <p class="has-text-weight-medium is-size-0-8 has-text-secondary">
               Your Menu
             </p>

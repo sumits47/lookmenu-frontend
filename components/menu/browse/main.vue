@@ -6,7 +6,7 @@
         <img :src="place.bgURL" alt="Background" />
       </figure>
     </div>
-    <div class="card-content">
+    <div class="card-content pb-0">
       <!-- Header -->
       <div class="media mb-2">
         <!-- Logo -->

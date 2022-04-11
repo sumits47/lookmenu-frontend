@@ -3,6 +3,12 @@
   <div>
     <!-- Banner -->
     <home-banner />
+    <!-- Why -->
+    <home-why />
+    <!-- Benefits -->
+    <home-benefits />
+    <!-- Features -->
+    <home-features />
   </div>
 </template>
 
