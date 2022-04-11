@@ -2,7 +2,7 @@
   <div class="columns is-multiline is-desktop">
     <!-- Places -->
     <div v-for="p in places" :key="p._id" class="column is-4">
-      <places-card :place="p" />
+      <places-card :place="p" @open:qr="onOpenQr" />
     </div>
     <!-- Add Place -->
     <div class="column is-4">
@@ -35,8 +35,10 @@ export default {
     places() {
       return this.$store.getters['places/getPlaces']
     },
-    place() {
-      return this.$store.getters['places/getSelected']
+  },
+  methods: {
+    onOpenQr(place) {
+      this.$emit('open:qr', place)
     },
   },
 }

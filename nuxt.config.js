@@ -38,6 +38,11 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [],
 
+  // Runtime Configuration: https://nuxtjs.org/docs/directory-structure/nuxt-config#runtimeconfig
+  publicRuntimeConfig: {
+    browserBaseURL: process.env.BROWSER_BASE_URL || 'http://localhost:4000',
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/buefy
@@ -61,7 +66,8 @@ export default {
         domain: 'lookmenu.us.auth0.com',
         clientId: 'WQFx36aqrzNgqui4MFmb8SiUkqKNchaN',
         audience: 'https://lookmenu.app',
-        logoutRedirectUri: 'http://localhost:3000',
+        logoutRedirectUri:
+          process.env.LOGOUT_REDIRECT_URL || 'http://localhost:4000',
         scope: ['openid', 'profile', 'email', 'offline_access'],
         responseType: 'code',
         grantType: 'authorization_code',

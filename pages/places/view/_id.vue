@@ -10,6 +10,7 @@
 <script>
 export default {
   layout: 'blank',
+  auth: false,
   head() {
     return {
       title: this.place.name,

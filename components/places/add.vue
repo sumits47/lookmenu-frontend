@@ -84,7 +84,6 @@
 
 <script>
 import _ from 'lodash'
-import { mapActions } from 'vuex'
 import { countries } from 'countries-list'
 
 function makeForm() {
@@ -116,7 +115,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions('places', ['addPlace']),
     open() {
       this.$refs.form?.open()
     },
@@ -147,7 +145,7 @@ export default {
     },
     async onSubmit() {
       try {
-        await this.addPlace(this.toValue(this.form))
+        await this.$store.dispatch('places/addPlace', this.toValue(this.form))
         this.$success('Place added.')
       } catch (e) {
         this.$error(e)

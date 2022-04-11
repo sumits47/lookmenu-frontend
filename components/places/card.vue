@@ -32,15 +32,16 @@
           >
             Edit Menu
           </b-button>
-          <!-- Orders -->
+          <!-- QR -->
           <b-button
             type="is-info"
             size="is-small"
             rounded
-            icon-left="food"
+            icon-left="qrcode"
             class="has-text-weight-medium"
+            @click="$emit('open:qr', place)"
           >
-            Orders
+            QR
           </b-button>
         </div>
       </div>
