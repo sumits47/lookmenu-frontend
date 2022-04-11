@@ -10,7 +10,14 @@
             </p>
             <p class="is-size-3 has-text-grey">on a QR Code.</p>
             <div class="mt-4 has-text-centered-mobile">
-              <b-button type="is-light is-primary" rounded>View Demo</b-button>
+              <b-button
+                type="is-light is-primary"
+                rounded
+                tag="nuxt-link"
+                :to="demoLink"
+              >
+                View Demo
+              </b-button>
               <b-button type="is-primary" rounded @click="signUp">
                 Create Menu
               </b-button>
@@ -33,6 +40,12 @@
 
 <script>
 export default {
+  computed: {
+    demoLink() {
+      const { _id } = this.$store.getters['places/getDemo']
+      return `/places/view/${_id}`
+    },
+  },
   methods: {
     signUp() {
       this.$auth.loginWith('auth0', { params: { screen_hint: 'signup' } })

@@ -12,5 +12,8 @@ export default {
     title: 'QR Code menu',
   },
   auth: false,
+  async asyncData({ store }) {
+    await store.dispatch('places/loadDemo')
+  },
 }
 </script>

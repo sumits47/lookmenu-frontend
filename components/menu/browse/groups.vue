@@ -11,6 +11,13 @@
         </div>
       </div>
     </div>
+    <!-- If Loading -->
+    <div v-if="loading" class="field">
+      <p class="label">
+        <b-skeleton active height="24px" width="50%" />
+      </p>
+      <b-skeleton height="128px" />
+    </div>
   </div>
 </template>
 
@@ -24,6 +31,10 @@ export default {
       default() {
         return []
       },
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

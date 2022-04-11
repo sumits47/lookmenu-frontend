@@ -3,16 +3,19 @@ import _ from 'lodash'
 export const state = () => ({
   list: [],
   selected: {},
+  demo: {},
 })
 
 export const getters = {
   getPlaces: (state) => state.list,
   getSelected: (state) => state.selected,
+  getDemo: (state) => state.demo,
 }
 
 export const mutations = {
   setPlaces: (state, value) => (state.list = value),
   setSelected: (state, value) => (state.selected = value),
+  setDemo: (state, value) => (state.demo = value),
 }
 
 export const actions = {
@@ -37,5 +40,9 @@ export const actions = {
   async removePlace({ dispatch }, id) {
     await this.$axios.$delete(`/places/${id}`)
     await dispatch('loadPlaces')
+  },
+  async loadDemo({ commit }) {
+    const data = await this.$axios.$get('/places/demo')
+    commit('setDemo', data)
   },
 }

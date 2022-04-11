@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 export default {
   // Loading: https://nuxtjs.org/docs/features/loading/
   loading: {
@@ -43,6 +45,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/auth-next',
+    '@nuxtjs/sitemap',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -80,6 +83,19 @@ export default {
 
   router: {
     middleware: ['auth'],
+  },
+
+  // Sitemap: https://sitemap.nuxtjs.org/usage/sitemap-options#routes-declaration
+  sitemap: {
+    // hostname: 'lookmenu.app',
+    routes: async () => {
+      const { data } = await axios({
+        baseURL: process.env.BASE_URL,
+        url: '/api/places/sitemap',
+        method: 'get',
+      })
+      return data.map(({ _id }) => `/places/view/${_id}`)
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

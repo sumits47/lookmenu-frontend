@@ -54,6 +54,9 @@
         </b-tab-item>
       </b-tabs>
     </div>
+    <div class="card-footer is-justify-content-center">
+      <nuxt-link class="card-footer-item" to="/">lookmenu.app</nuxt-link>
+    </div>
   </div>
 </template>
 

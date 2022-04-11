@@ -64,7 +64,7 @@
         </p>
         <p v-else>
           <!-- Price -->
-          <span class="is-size-5 has-text-weight-medium has-text-grey-lighter">
+          <span class="is-size-4 has-text-weight-medium has-text-grey-lighter">
             {{ item.price }}
           </span>
           <sup class="has-text-weight-medium has-text-grey-lighter">
@@ -73,7 +73,7 @@
         </p>
       </div>
       <div v-if="!item.available" class="column is-narrow">
-        <span class="tag is-light is-danger">Not Available</span>
+        <span class="mt-2 tag is-light is-danger">Not Available</span>
       </div>
     </div>
   </div>
