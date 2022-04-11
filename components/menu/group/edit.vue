@@ -13,7 +13,7 @@
     </div>
     <!-- Heading -->
     <div class="field">
-      <div class="has-text-weight-medium is-size-7">Add Group</div>
+      <div class="title is-6">Edit Group</div>
     </div>
     <!-- Name -->
     <v-prov
@@ -64,6 +64,33 @@
         Save
       </b-button>
     </div>
+    <!-- Divider -->
+    <hr />
+    <!-- Items Heading -->
+    <div class="field">
+      <div class="title is-6">Items</div>
+    </div>
+    <!-- Item List -->
+    <item
+      v-for="(item, i) in items"
+      :key="item._id"
+      :value="item"
+      :can-move-up="canMoveUp(i)"
+      :can-move-down="canMoveDown(i)"
+      :loading="loading"
+      @edit="onEdit(item)"
+      @up="onMoveUp(item)"
+      @down="onMoveDown(item)"
+    />
+    <!-- Add Item -->
+    <b-button
+      type="is-primary is-light"
+      size="is-small"
+      class="is-fullwidth mt-4"
+      @click="openAddItem"
+    >
+      Add Item
+    </b-button>
     <!-- Delete Group -->
     <b-button
       type="is-danger is-light"
@@ -83,18 +110,16 @@
 
 <script>
 import _ from 'lodash'
+import Item from '@/components/lm/item.vue'
 import Edit from '../category/edit.vue'
+import AddItem from '../item/add.vue'
+import EditItem from '../item/edit.vue'
 
 export default {
+  components: {
+    Item,
+  },
   props: {
-    menu: {
-      type: Object,
-      required: true,
-    },
-    category: {
-      type: Object,
-      required: true,
-    },
     group: {
       type: Object,
       required: true,
@@ -109,6 +134,14 @@ export default {
   computed: {
     emptyImage() {
       return 'https://lookmenu.sgp1.digitaloceanspaces.com/empty-image.jpeg'
+    },
+    items() {
+      return this.$store.getters['item/getItems']
+    },
+  },
+  watch: {
+    group(updated) {
+      this.form = _.pick(updated, ['_id', 'name', 'bgURL'])
     },
   },
   methods: {
@@ -133,7 +166,7 @@ export default {
       try {
         this.loading = true
         await this.$store.dispatch('group/updateGroup', this.form)
-        await this.$store.dispatch('category/loadCategories', this.menu._id)
+        await this.$store.dispatch('category/loadCategories', this.group.menu)
         this.$success('Group updated.')
         this.goBack()
       } catch (e) {
@@ -147,9 +180,45 @@ export default {
         const { _id } = this.group
         this.loading = true
         await this.$store.dispatch('group/removeGroup', _id)
-        await this.$store.dispatch('category/loadCategories', this.menu._id)
+        await this.$store.dispatch('category/loadCategories', this.group.menu)
         this.$success('Group removed.')
         this.goBack()
+      } catch (e) {
+        this.$error(e)
+      } finally {
+        this.loading = false
+      }
+    },
+    canMoveUp(i) {
+      return i !== 0
+    },
+    canMoveDown(i) {
+      const max = this.items.length - 1
+      return i !== max
+    },
+    openAddItem() {
+      this.$emit('show', AddItem)
+    },
+    onEdit(item) {
+      this.$store.commit('item/setSelected', item)
+      this.$emit('show', EditItem)
+    },
+    async onMoveUp(item) {
+      try {
+        this.loading = true
+        await this.$store.dispatch('item/moveUp', item)
+        await this.$store.dispatch('category/loadCategories', item.menu)
+      } catch (e) {
+        this.$error(e)
+      } finally {
+        this.loading = false
+      }
+    },
+    async onMoveDown(item) {
+      try {
+        this.loading = true
+        await this.$store.dispatch('item/moveDown', item)
+        await this.$store.dispatch('category/loadCategories', item.menu)
       } catch (e) {
         this.$error(e)
       } finally {

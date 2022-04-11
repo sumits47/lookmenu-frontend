@@ -13,7 +13,7 @@
     </div>
     <!-- Heading -->
     <div class="field">
-      <div class="has-text-weight-medium is-size-7">Add Group</div>
+      <div class="title is-6">Add Group</div>
     </div>
     <!-- Name -->
     <v-prov
@@ -72,10 +72,6 @@ import Edit from '../category/edit.vue'
 
 export default {
   props: {
-    menu: {
-      type: Object,
-      required: true,
-    },
     category: {
       type: Object,
       required: true,
@@ -119,7 +115,10 @@ export default {
           category: this.category._id,
         }
         await this.$store.dispatch('group/addGroup', payload)
-        await this.$store.dispatch('category/loadCategories', this.menu._id)
+        await this.$store.dispatch(
+          'category/loadCategories',
+          this.category.menu
+        )
         this.$success('Group added.')
         this.goBack()
       } catch (e) {

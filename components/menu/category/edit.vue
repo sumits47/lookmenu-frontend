@@ -53,7 +53,7 @@
       :can-move-up="canMoveUp(i)"
       :can-move-down="canMoveDown(i)"
       :loading="loading"
-      @edit="openEditGroup(g)"
+      @edit="onEdit(g)"
       @up="onMoveUp(g)"
       @down="onMoveDown(g)"
     />
@@ -94,17 +94,19 @@ export default {
   components: {
     Item,
   },
+  props: {
+    category: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
-    const category = this.$store.getters['category/getSelected']
     return {
-      form: _.pick(category, ['_id', 'name']),
+      form: _.pick(this.category, ['_id', 'name']),
       loading: false,
     }
   },
   computed: {
-    category() {
-      return this.$store.getters['category/getSelected']
-    },
     groups() {
       return this.$store.getters['group/getGroups']
     },
@@ -153,8 +155,9 @@ export default {
     openAddGroup() {
       this.$emit('show', AddGroup)
     },
-    openEditGroup(group) {
+    onEdit(group) {
       this.$store.commit('group/setSelected', group)
+      this.$store.dispatch('item/loadItems', group._id)
       this.$emit('show', EditGroup)
     },
     async onMoveUp(group) {

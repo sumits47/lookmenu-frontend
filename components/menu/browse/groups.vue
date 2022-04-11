@@ -3,7 +3,7 @@
     <!-- For every group -->
     <div v-for="g in groups" :key="g._id" class="field">
       <p class="label has-text-grey" v-text="g.name" />
-      <div class="card is-clickable">
+      <div class="card is-clickable" @click="onGroupSelect(g)">
         <div class="card-image">
           <figure class="image">
             <img :src="imageURL(g)" style="height: 128px; object-fit: cover" />
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import Items from './items.vue'
+
 export default {
   props: {
     groups: {
@@ -30,6 +32,10 @@ export default {
         bgURL ??
         'https://lookmenu.sgp1.digitaloceanspaces.com/food-placeholder.png'
       )
+    },
+    onGroupSelect(group) {
+      this.$emit('select', group)
+      this.$emit('show', Items)
     },
   },
 }

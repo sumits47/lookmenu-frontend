@@ -47,10 +47,10 @@
         </div>
       </div>
       <!-- Categories -->
-      <b-tabs v-model="tab" :key="tabKey" type="is-toggle">
+      <b-tabs v-model="tab" :key="tabKey" type="is-toggle" multiline>
         <!-- For each category -->
         <b-tab-item v-for="c in categories" :key="c._id" :label="c.name">
-          <wrapper :category="c" />
+          <wrapper :place="place" :category="c" />
         </b-tab-item>
       </b-tabs>
     </div>

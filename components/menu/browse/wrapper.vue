@@ -1,5 +1,13 @@
 <template>
-  <component :is="component" :groups="groups" :group="group" />
+  <component
+    :is="component"
+    :place="place"
+    :groups="groups"
+    :group="group"
+    :items="items"
+    @show="onShow"
+    @select="onGroupSelect"
+  />
 </template>
 
 <script>
@@ -7,6 +15,10 @@ import Groups from './groups.vue'
 
 export default {
   props: {
+    place: {
+      type: Object,
+      required: true,
+    },
     category: {
       type: Object,
       required: true,
@@ -16,6 +28,7 @@ export default {
     return {
       groups: [],
       group: null,
+      items: [],
       component: Groups,
     }
   },
@@ -25,10 +38,20 @@ export default {
     },
   },
   methods: {
+    onShow(component) {
+      this.component = component
+    },
+    onGroupSelect(group) {
+      this.group = group
+      this.loadItems()
+    },
     async loadGroups() {
       const { _id } = this.category
       this.groups = await this.$axios.$get(`/categories/${_id}/groups`)
-      this.$emit('refresh')
+    },
+    async loadItems() {
+      const { _id } = this.group
+      this.items = await this.$axios.$get(`/groups/${_id}/items`)
     },
   },
   mounted() {

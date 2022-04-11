@@ -37,9 +37,17 @@ html {
   padding: 1rem 0;
 }
 
+.item-description {
+  font-size: 0.75rem;
+}
+
+.is-blurred {
+  opacity: 0.25;
+}
+
 @media only screen and (max-width: 600px) {
   .menu-container {
-    height: 100vh;
+    min-height: 100vh;
     border-radius: 0;
     margin: auto;
   }

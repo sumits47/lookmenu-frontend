@@ -37,18 +37,17 @@ import Add from './add.vue'
 import Edit from './edit.vue'
 
 export default {
-  props: {
-    categories: {
-      type: Array,
-      required: true,
-    },
-  },
   components: {
     Item,
   },
   data: () => ({
     loading: false,
   }),
+  computed: {
+    categories() {
+      return this.$store.getters['category/getCategories']
+    },
+  },
   methods: {
     showAdd() {
       this.$emit('show', Add)

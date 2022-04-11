@@ -5,7 +5,7 @@
       <div class="media-content">
         <!-- Menu Name -->
         <p class="title is-5" v-text="menu.name" />
-        <!-- Breadcrumbs -->
+        <!-- Link to Place -->
         <p class="subtitle is-6">
           <nuxt-link :to="placeLink">
             <b-icon icon="store" size="is-small" />
@@ -32,7 +32,7 @@
       :menu="menu"
       :category="category"
       :group="group"
-      :categories="categories"
+      :item="item"
       class="mt-4"
       @show="onShow"
     />
@@ -61,6 +61,9 @@ export default {
     group() {
       return this.$store.getters['group/getSelected']
     },
+    item() {
+      return this.$store.getters['item/getSelected']
+    },
     placeLink() {
       const { _id } = this.$store.getters['places/getSelected']
       return `/places/edit/${_id}`
@@ -69,9 +72,6 @@ export default {
       const place = this.$store.getters['places/getSelected']
       const menu = this.$store.getters['menu/getSelected']
       return place.menu === menu._id
-    },
-    categories() {
-      return this.$store.getters['category/getCategories']
     },
   },
   methods: {
