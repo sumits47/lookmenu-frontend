@@ -9,6 +9,8 @@
     <home-benefits />
     <!-- Features -->
     <home-features />
+    <!-- FAQs -->
+    <home-faqs />
   </div>
 </template>
 
