@@ -1,5 +1,8 @@
 name: Docker Image CI
 
+env:
+  LOGOUT_REDIRECT_URL: ${{ secrets.LOGOUT_REDIRECT_URL }}
+
 on:
   push:
     branches: [main]
