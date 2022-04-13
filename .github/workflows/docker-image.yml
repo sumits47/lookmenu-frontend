@@ -1,8 +1,5 @@
 name: Docker Image CI
 
-env:
-  LOGOUT_REDIRECT_URL: ${{ secrets.LOGOUT_REDIRECT_URL }}
-
 on:
   push:
     branches: [main]
@@ -16,11 +13,15 @@ jobs:
       - uses: actions/checkout@v2
         name: Check out code
 
+      - name: Print Logout Redirect URL
+        run: echo "LOGOUT_REDIRECT_URL = ${{ secrets.LOGOUT_REDIRECT_URL }}"
+
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: Build & push Docker image
         with:
           image: lookmenu/frontend
-          tags: latest
+          addLatest: true
           registry: ghcr.io
+          buildArgs: LOGOUT_REDIRECT_URL=${{ secrets.LOGOUT_REDIRECT_URL }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}

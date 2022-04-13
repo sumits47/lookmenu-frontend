@@ -11,7 +11,9 @@ RUN yarn install
 
 COPY . ./
 
-# RUN npx nuxt build --standalone
+ARG LOGOUT_REDIRECT_URL
+ENV LOGOUT_REDIRECT_URL ${LOGOUT_REDIRECT_URL:-http://localhost:4000}
+
 RUN yarn build
 
 # production environment
