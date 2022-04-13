@@ -16,7 +16,12 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Online QR code menu for your cafe, restaurant or bar. No ads. No equipment needed. Edit your menu online in real time. No limits for QR code scan. Free to use!',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/img/logo.png' }],
